@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ajax-jsonp</title>
+</head>
+<body>
+    <input type="text" id="inp" name="" value="">
+    <div id="box"></div>
+    <script>
+        var inp=document.getElementById('inp');
+        var box=document.getElementById('box');
+        inp.oninput=function(){
+            var val=this.value;
+            if(document.querySelector('.sc')){
+                document.querySelector('.sc').remove();
+            }
+            var sp=document.createElement('script');
+            sp.className='sc';
+            sp.src="https://sug.so.360.cn/suggest?callback=suggest_so&encodein=utf-8&encodeout=utf-8&format=json&fields=word&word=" + val;
+            document.body.appendChild(sp)
+
+        }
+        function suggest_so(data){
+            box.innerHTML="";
+            for(var i=0;i<data.result.length;i++){
+                var p=document.createElement('p');
+                p.innerHTML=data.result[i].word;
+                box.appendChild(p);
+            }
+        }
+    
+    </script>
+</body>
+</html>
